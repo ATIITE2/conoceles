@@ -1,0 +1,159 @@
+.text-r {
+    text-align: right;
+  }
+  .text-l {
+    text-align: left;
+  }
+  .text-c {
+    text-align: center;
+  }
+  .text-j {
+    text-align: justify;
+  }
+  .texto__xs {
+    font-size: 13px;
+    color: #606060;
+  }
+  .texto__s {
+    font-size: 15px;
+    color: #606060;
+  }
+  .texto__m {
+    font-size: 17px;
+    color: #606060;
+  }
+  .texto__l {
+    font-size: 19px;
+    color: #606060;
+  }
+  .texto__xl {
+    font-size: 21px;
+    color: #606060;
+  }
+  .texto__xxl {
+    font-size: 23px;
+    color: #606060;
+  }
+  .divisor__horizontal {
+    display: flex;
+    clear: both;
+    width: 100%;
+    min-width: 100%;
+    margin: 24px 0;
+    border-top: 2px solid #dbdbdb;
+  }
+  
+  .nav-pills .nav-link {
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0 !important;
+    color: #000 !important;
+    border: 0;
+    border-radius: var(--bs-nav-pills-border-radius);
+  }
+  
+  .nav-pills .nav-link.active,
+  .nav-pills .show > .nav-link {
+    text-align: left;
+    color: #ffffff !important;
+    background-color: #ba1678 !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .card-header {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: larger;
+    text-align: center;
+  }
+  .card-footer {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    text-align: right;
+  }
+  .card {
+    height: auto !important;
+  }
+  .card-body {
+    height: 500px !important;
+    padding: inherit !important;
+  }
+  .tema-area {
+    background: #f2f2f2;
+    font-weight: 500;
+    padding: 12px 0;
+    color: #8c8c8c;
+  }
+  .rosa {
+    color: #d5007f;
+  }
+  .link__text {
+    color: #ba1678;
+  }
+  .color__span {
+    color: grey;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .color__span2 {
+    color: #000;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .color__span3 {
+    color: #d5007f;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .divisor__horizontal {
+    display: flex;
+    clear: both;
+    width: 100%;
+    min-width: 100%;
+    margin: 24px 0;
+    border-top: 2px solid #dbdbdb;
+  }
+  .texto {
+    font-size: 13px;
+    color: #606060;
+  }
+  .texto__forms {
+    color: black;
+  }
+  /* .stilos_box
+  {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      display: inline-block;
+      
+  } */
+  .boton_Style {
+    padding-left: 0%;
+    padding-right: 20%;
+  }
+  
+  .img_partidos {
+    padding: 10px;
+  }
+
+
+  /* Diseño para PC */
+  .elemento1, .elemento2 {
+    float:left;
+    width:33%;
+  }
+
+
+/* Diseño para tabletas */ 
+@media screen and (min-width: 800px) {
+	.elemento1, .elemento2 {
+		float:left;
+		width:50%;
+	}
+}
+
+/* Diseño para celulares */ 
+@media screen and (min-width: 1025px) {
+	.elemento1, .elemento2 { 
+    float:none;
+    width:100%;
+  }
+}

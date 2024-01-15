@@ -1,0 +1,33 @@
+.navbar-icons {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    height: 55px;
+
+}
+
+.soc_media {
+    margin-right: 30px;
+    color: #6d004e;
+    transform: scale(2);
+}
+
+.Header__logoITE {
+    /* width: 12rem; */
+}
+
+.menu-opciones {
+    float: right;
+}
+
+@media screen and (max-width: 760px) {
+
+    .Header__logoITE {
+        width: 9rem !important;
+        /* margin-bottom: !important; */
+        display: none !important;
+    }
+
+}
+
+/** TERMINA HEADER */

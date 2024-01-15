@@ -1,0 +1,86 @@
+
+/******************************************************************************************************************************
+RESPONSIVE
+*******************************************************************************************************************************/
+@media only screen and (max-width: 520px) {
+    .timer_box{ margin: 0 12px 12px 0;}
+}
+
+@media only screen and (max-width: 740px) {    
+    .timer_box{
+        width: 100px;
+        padding: 16px 0 0 0;
+        margin: 35px 12px;
+    }
+    .timer_box h1{ font-size: 28px;}
+    h1{ font-size: 36px;}
+}
+
+/******************************************************************************************************************************
+ANIMATIONS
+*******************************************************************************************************************************/
+
+.animated.FadeIn {
+    opacity: 1;
+    -webkit-animation-duration: .8s;
+       -moz-animation-duration: .8s;
+        -ms-animation-duration: .8s;
+         -o-animation-duration: .8s;
+            animation-duration: .8s;
+    -webkit-animation-name: FadeIn;
+       -moz-animation-name: FadeIn;
+         -o-animation-name: FadeIn;
+            animation-name: FadeIn;
+}
+
+@-webkit-keyframes FadeIn {
+    0%   {opacity: 0}
+    30%  {opacity: .3;}
+    60%  {opacity: .6;}
+    100%  {opacity: 1;}
+}
+@-moz-keyframes FadeIn {
+    0%   {opacity: 0}
+    30%  {opacity: .3;}
+    60%  {opacity: .6;}
+    100%  {opacity: 1;}
+}
+@-o-keyframes FadeIn {
+    0%   {opacity: 0}
+    30%  {opacity: .3;}
+    60%  {opacity: .6;}
+    100%  {opacity: 1;}
+}
+@keyframes FadeIn {
+    0%   {opacity: 0}
+    30%  {opacity: .3;}
+    60%  {opacity: .6;}
+    100%  {opacity: 1;}
+}
+
+/*** GENERAL ***/
+
+#timer {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    padding: 2px 0;
+}
+
+#timer .timer_box{
+    margin: 35px 24px;
+    display: inline-block;
+    padding: 20px 12px 0px 12px;
+    /* text-align: center;  */
+    width: 130px;
+    border-radius: 50%;
+    border: 4px solid rgba(186,22,120);
+}
+#timer .timer_box h1{
+    font-size: 48px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #000;
+}
+/* #timer .timer_box p{ margin-top: 0px;}  */

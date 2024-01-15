@@ -1,0 +1,21 @@
+div.a-center {
+    text-align: center;
+  }
+  
+  div.a-left {
+    text-align: left;
+  }
+  
+  div.a-right {
+    text-align: right;
+  }
+  
+  div.a-justify {
+    text-align: justify;
+  }
+
+video,
+iframe {
+  width: 100% !important;
+  height: auto !important;
+}

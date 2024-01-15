@@ -1,0 +1,59 @@
+/** HOME */
+
+.color__span {
+    color: grey;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.color__span2 {
+    color: #000;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.color__span3 {
+    color: #d5007f;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+
+/* nuevo tema area */
+.tema-area {
+    background: #f2f2f2;
+    /* border: 1px solid #ddd; */
+    padding: 15px;
+    color: #8c8c8c;
+}
+
+.nav-pills .nav-link {
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0 !important;
+    color: #000 !important;
+    border: 0;
+    border-radius: var(--bs-nav-pills-border-radius);
+  }
+  
+  .nav-pills .nav-link.active,
+  .nav-pills .show > .nav-link {
+    text-align: left;
+    color: #ffffff !important;
+    background-color: #ba1678 !important;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .rosa {
+    color: #d5007f;
+  }
+
+
+  .card-footer {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    text-align: right;
+  }
+
+
+/** termina HOME */
