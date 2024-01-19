@@ -56,6 +56,20 @@ foreach ($cat_chrt as $row) {
 
 $html_lista_charts.='</ul>'.PHP_EOL;
 
+$html_lista_charts_resp='<ul class="nav nav-tabs justify-content-center justify-content-md-center nav-pills">'.PHP_EOL;
+
+$a='active';
+foreach ($cat_chrt as $row) {
+    if($row['status'] == 1) {
+        $html_lista_charts_resp.='<li class="nav-item" role="presentation" onclick="muestraGrafica('. $row['id'] .', \''. $row['nom_com'] .'\','. $row['tipo'] .'); activarList(\'chrt_link'.$row['id'].'_resp\');">
+                                    <a class="nav-link '. $a .'" id="chrt_link'.$row['id'].'_resp">'. $row['nom_resp'] .'</a>
+                                </li>'.PHP_EOL;
+    }
+    $a='';
+}
+
+$html_lista_charts_resp.='</ul>'.PHP_EOL;
+
 
 $html_cat_generos='';
 
@@ -268,9 +282,12 @@ foreach ($cat_gen as $row) {
 
 
 
-    <div class="w-10 d-flex flex-wrap justify-content-center justify-content-md-center">
+    <div class="container flex-wrap justify-content-center justify-content-md-center">
         <div class="row flex-column flex-md-row">
-            <div class="col-md order-md-2">
+            <div class="col-md-3" id="lista_chrts1">
+                <?php echo $html_lista_charts; ?>
+            </div>
+            <div class="col-md-9" id="conten_graf1">
                 <div class="tab-content">
                     <div class="tab-pane fade show active" role="tabpanel">
                         <div class="card">
@@ -282,15 +299,16 @@ foreach ($cat_gen as $row) {
                                 <b class="rosa"> <?php echo $data_counter_foot["t_registros"]; ?> </b>
                             </div>
                         </div>
+                        <div class="col-12 d-none" id="lista_chrts2">
+                            <?php echo $html_lista_charts_resp; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md order-md-1">
-                <?php echo $html_lista_charts; ?>
             </div>
         </div>
     </div>
 
+    
     <br>
     <div class="border-top mt-10"></div>
     <br>

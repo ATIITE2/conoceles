@@ -1,10 +1,23 @@
-<div class="Footer"><div>Ubicación: Ex-Fábrica San Manuel S/N, Barrio Nuevo, 90640 San Miguel Contla, Tlax.</div>
-	<div>
-		<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="copyright" class="svg-inline--fa fa-copyright " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-			<path fill="currentColor"
-				d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM199.4 312.6c31.2 31.2 81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1z">
-			</path>
-		</svg> Todos los derechos reservados.
-	</div>
-	<div>Teléfono: (246)4650340 ext. 111<br>Correo Electrónico: transparencia@itetlax.org.mx</div>
-</div>
+	<div class="w-100 d-flex flex-wrap justify-content-between align-items-center Footer">
+        <div class="container p-3 col-md-4">
+            <div class="text-center">
+                <label><strong> Ubicación:</strong></label>
+                <p> Ex-Fábrica San Manuel S/N <br>Barrio Nuevo C.P. 90640 San Miguel Contla, Tlaxcala. </p>
+            </div>
+        </div>
+
+        <div class="container p-4 col-md-4">
+            <div class="text-center">
+                <label><strong> ITE</strong></label>
+                <p> © Derechos Reservados. <br>Instituto Tlaxcalteca de Elecciones </p>
+            </div>
+        </div>
+
+        <div class="container p-4 col-md-4">
+            <div class="text-center">
+                <label> <strong>Contacto:</strong></label>
+                <p>Teléfono: <strong>(246)4650340 ext. 111</strong><br> Email: <strong>transparencia@itetlax.org.mx</strong>
+                </p>
+            </div>
+        </div>
+    </div>

@@ -1,13 +1,54 @@
-$( document ).ready(function() {
-    muestraGrafica(1, 'Registro candidatos',1);
+$(document).ready(function() {
+	let reld=0;
+
+	// Agregar clase "d-none" (ocultar) al div cuando se carga la página al modo responsive por primera vez
+	$(window).on("load", function() {
+		reld=cambia_responsive(window);
+		muestraGrafica(1, 'Registro candidatos',1);
+	  });
+	  
+	// Agregar clase "d-none" (ocultar) al div cuando se ingresa al modo responsive
+    $(window).on("resize", function() {
+      reld=cambia_responsive(window);
+    });
+
+	if(reld === 0){
+		reld=cambia_responsive(window);
+		muestraGrafica(1, 'Registro candidatos',1);
+	}
+	
 });
+
+
+function cambia_responsive(w){
+	if ($(w).width() < 1000) {
+
+		// Modifica el tamaño del lienzo de la gráfica
+		$("#conten_graf1").removeClass("col-md-9");
+		$("#conten_graf1").addClass("col-md-12");
+		
+		// Agrega y quita la clase d-none en la lista correspondiente segun su responsive
+        $("#lista_chrts1").addClass("d-none");
+		$("#lista_chrts2").removeClass("d-none");
+      } else {
+
+		// Modifica el tamaño del lienzo de la gráfica
+		$("#conten_graf1").removeClass("col-md-12");
+		$("#conten_graf1").addClass("col-md-9");
+
+		// Agrega y quita la clase d-none en la lista correspondiente segun su responsive
+        $("#lista_chrts2").addClass("d-none");
+		$("#lista_chrts1").removeClass("d-none");
+      }
+	  
+	return 1;
+}
 
 function activarList(chl){
     $(".nav-link").removeClass('active');
     $("#"+chl).addClass('active');
 
 }
-
 
 function lmpCampos(){
     $("#grado_aca").val("0");
@@ -52,4 +93,4 @@ function lmpCampos(){
 			}
 	});	
 		
-  })(jQuery); 
+  })(jQuery);

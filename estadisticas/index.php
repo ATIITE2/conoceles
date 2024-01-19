@@ -9,11 +9,9 @@
 ?>
 
 <body>
-	<div id='root'>
-		<?php 	include RUTA_SCRIPTS. "layout/header.php";
-				include RUTA_SCRIPTS. "public/estadisticas.php";
-				include RUTA_SCRIPTS. "layout/footer.php"; ?>
-	</div>
+	<?php 	include RUTA_SCRIPTS. "layout/header.php";
+			include RUTA_SCRIPTS. "public/estadisticas.php";
+			include RUTA_SCRIPTS. "layout/footer.php"; ?>
 </body>
 
 </html>

@@ -85,6 +85,5 @@ function getCountVisitas($min_max){
         </div>
     </div>
 </div>
-<br>
-<div class="border-top mt-10"></div>
+<div class="border-2 border-top"></div>
 <br>

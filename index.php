@@ -9,11 +9,9 @@
 ?>
 
 <body>
-	<div id='root'>
-		<?php 	include "layout/header.php";
-				include "public/home.php";
-				include "layout/footer.php"; ?>
-	</div>
+    <?php 	include "layout/header.php";
+            include "public/home.php";
+            include "layout/footer.php"; ?>
 </body>
 
 </html>
