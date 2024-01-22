@@ -125,17 +125,14 @@ if(isset($_SESSION)){
                 <div class="card">
                     <div class="card-body">
                         <!-- Logo -->
-                        
                         <div style="text-align: center;">
                             <!-- <a href="index.php" class="app-brand-link"> -->
-                            <img src="logoite.png" width="200em">
-                            <br><br>
-                            <h6 class="mb-2 text-center">SISTEMA DE CANDIDATAS Y CANDIDATOS</h6>
-                            <h5><strong>"CONOCELES"</strong></h5>
+                            <img src="../assets/img/logo/logo_5.png" width="350em">
+                            
+                            <!--<br><br> <h6 class="mb-2 text-center">SISTEMA DE CANDIDATAS Y CANDIDATOS</h6>
+                            <h5><strong>"CONOCELES"</strong></h5> -->
                         </div>
-                        <br>
                         <!-- /Logo -->
-                        
                         <p class="mb-4 text-center">Por favor ingresa tu cuenta.</p>
 
                         <form id="formAuthentication" class="mb-3" action="validar.php" method="POST">

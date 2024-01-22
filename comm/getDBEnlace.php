@@ -18,6 +18,7 @@ function dbConexion($q) {
     }
 
     // Consulta previa para ajustar los nobres de fechas de dias y meses en español
+    $conn->set_charset("utf8");
     $conn->query("SET lc_time_names = 'es_MX'");
 
     $result = $conn->query($q);
@@ -39,6 +40,11 @@ function dbConexionSave($q,$tipos,$valores) {
     global $cred;
     $resp= "";
     $conn = new mysqli($cred["dbhost"], $cred["dbusr"], $cred["dbpass"], $cred["dbname"]);
+
+    // Consulta previa para ajustar los nobres de fechas de dias y meses en español
+    $conn->set_charset("utf8");
+    $conn->query("SET lc_time_names = 'es_MX'");
+    
     if ($conn->connect_error) {
         die("Fallo la conexión con la BD: " . $conn->connect_error);
     }

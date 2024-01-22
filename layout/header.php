@@ -23,7 +23,7 @@
                 <ul class="menu-opciones navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <!-- agregar la variable de rutas a la url de inicio de sesión -->
-                        <a class="nav-link active" aria-current="page" href="pages/login.php">Inicio de Sesión</a>
+                        <a class="nav-link active" aria-current="page" href="<?php echo RUTA_SCRIPTS ?>pages/login.php">Inicio de Sesión</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Opción 1</a>

@@ -1,25 +1,19 @@
 <?php
-
 include_once("conexion.php");
 $usuario=$_SESSION['usuario'];
 ?>
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-
     <div class="app-brand demo">
         <div style="text-align: center;">
-        <br>
-            <!-- <a href="index.php" class="app-brand-link"> -->
-            <img src="logoite.png" width="100em">
-            <br><br>
-            <span class="mb-2 text-center">SISTEMA DE CANDIDATAS Y CANDIDATOS</span>
-            <p><strong>"CONOCELES"</strong></p>
+            <br>
+            <a href="index.php" class="app-brand-link">
+                <img src="../assets/img/logo/logo_4.png" width="200em">
         </div>
         <br>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="bx bx-chevron-left bx-sm align-middle"></i>
         </a>
     </div>
-
     <?php  
     if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')   
          $url = "https://";   
@@ -27,15 +21,12 @@ $usuario=$_SESSION['usuario'];
          $url = "http://";   
     // Append the host(domain name, ip) to the URL.   
     $url.= $_SERVER['HTTP_HOST'];   
-    
     // Append the requested resource location to the URL   
     $url.= $_SERVER['REQUEST_URI'];    
-      
    //echo $url;  
   ?>
 
     <div class="menu-inner-shadow"></div>
-
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <?php 
@@ -81,7 +72,6 @@ $usuario=$_SESSION['usuario'];
         ?>
 
         <?php 
-        
         if($filas["id_rol"]==1){
         ?>
         <li class="menu-header small text-uppercase">
@@ -151,7 +141,7 @@ $usuario=$_SESSION['usuario'];
             }
             ?>
             <a href="verificadores.php" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-search"></i>
+                <i class="menu-icon tf-icons bx bx-search-alt"></i>
                 <div data-i18n="Layouts">Verificadores</div>
             </a>
         </li>
@@ -177,6 +167,23 @@ $usuario=$_SESSION['usuario'];
             </a>
         </li>
 
+        <?php 
+            if($url == "http://localhost/Sistemas/dashboard/pages/validadores.php" ){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else {
+            ?>
+        <li class="menu-item ">
+            <?php 
+            }
+            ?>
+            <a href="validadores.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-search-alt"></i>
+                <div data-i18n="Layouts">Validadores</div>
+            </a>
+        </li>
+
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">OPCIONES AVISOS DE PRIVACIDAD</span>
         </li>
@@ -199,6 +206,8 @@ $usuario=$_SESSION['usuario'];
         </li>
         <?php 
         }?>
+
+
         <?php 
         if($filas["id_rol"]==2){
         ?>
@@ -221,29 +230,13 @@ $usuario=$_SESSION['usuario'];
                 <div data-i18n="Layouts">Candidatos</div>
             </a>
         </li>
-        <!-- <?php 
-            if($url == "http://localhost/Sistemas/dashboard/pages/verificadores.php" OR $url == "http://localhost/Sistemas/dashboard/pages/crud_verificador.php" OR $url == "http://localhost/Sistemas/dashboard/pages/password_edit_veri.php"){
-            ?>
-        <li class="menu-item active">
-            <?php 
-            } else {
-            ?>
-        <li class="menu-item ">
-            <?php 
-            }
-            ?>
-            <a href="verificadores.php" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-search"></i>
-                <div data-i18n="Layouts">Verificadores</div>
-            </a>
-        </li> -->
-
         <?php 
         }?>
-
         <?php 
         }
         ?>
+
+
         <?php 
         if($filas["id_rol"]==3){
         ?>
@@ -256,6 +249,18 @@ $usuario=$_SESSION['usuario'];
         <li class="menu-item active">
             <?php 
             } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_1.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+                } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_2.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_3.php"){
             ?>
         <li class="menu-item active">
             <?php 
@@ -272,7 +277,7 @@ $usuario=$_SESSION['usuario'];
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="construccion_index.php" class="menu-link">
+                    <a href="cuestionario_cur.php" class="menu-link">
                         <div data-i18n="search_reg">Curricular</div>
                     </a>
                 </li>
@@ -293,8 +298,8 @@ $usuario=$_SESSION['usuario'];
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Avisos de Privacidad</span>
         </li>
-        <?php 
-            if($url == "http://localhost/Sistemas/dashboard/pages/aviso_privacidad.php"){
+            <?php 
+                if($url == "http://localhost/Sistemas/dashboard/pages/aviso_privacidad.php"){
             ?>
         <li class="menu-item active">
             <?php 
@@ -308,6 +313,128 @@ $usuario=$_SESSION['usuario'];
                 <i class="menu-icon tf-icons bx bx-fingerprint"></i>
                 <div data-i18n="Account">Aviso de Privacidad</div>
             </a>
+        </li>
+        <?php
+        }
+        ?>
+
+        <?php 
+        if($filas["id_rol"]==4){
+        ?>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Revisiones de Candidatos</span>
+            </li>
+            <?php 
+            if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_iden.php"   ){
+            ?>
+            <li class="menu-item active">
+                <?php 
+                } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur.php"){
+                ?>
+            <li class="menu-item active">
+                <?php 
+                } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_1.php"){
+                ?>
+            <li class="menu-item active">
+                <?php 
+                } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_2.php"){
+                ?>
+            <li class="menu-item active">
+                <?php 
+                } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_3.php"){
+                ?>
+            <li class="menu-item active">
+                <?php 
+                } else {
+                ?>
+            <li class="menu-item">
+                <?php 
+                }
+                ?>
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bxs-user-account"></i>
+                    <div data-i18n="Layouts">Candidatos</div>
+                </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="ayuntamientos_revision.php" class="menu-link">
+                            <div data-i18n="search_reg">Ayuntamiento</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="cuestionario_iden.php" class="menu-link">
+                            <div data-i18n="new_reg">Diputado RP</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="cuestionario_iden.php" class="menu-link">
+                            <div data-i18n="new_reg">Diputado MR</div>
+                        </a>
+                    </li>
+
+
+                    <!-- <li class="menu-item">
+                        <a href="layouts-blank.html" class="menu-link">
+                            <div data-i18n="Blank">Pagina en Blanco</div>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+        <?php
+        }
+        ?>
+
+        <?php 
+        if($filas["id_rol"]==5){
+        ?>
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Cuestionarios</span>
+        </li>
+        <?php 
+            if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_iden.php"   ){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_1.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_2.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else if($url == "http://localhost/Sistemas/dashboard/pages/cuestionario_cur_3.php"){
+            ?>
+        <li class="menu-item active">
+            <?php 
+            } else {
+            ?>
+        <li class="menu-item">
+            <?php 
+            }
+            ?>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-list-ol"></i>
+                <div data-i18n="Layouts">Cuestionarios</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="cuestionario_cur.php" class="menu-link">
+                        <div data-i18n="search_reg">Curricular</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="cuestionario_iden.php" class="menu-link">
+                        <div data-i18n="new_reg">Identidad</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         <?php
         }

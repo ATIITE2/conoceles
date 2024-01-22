@@ -109,6 +109,8 @@ if(!isset($_SESSION['usuario'])){
                         $tabla = "c_cand_dip_rp";
                     }
                 } elseif ($rol == 4){
+                    $tabla = "c_validadores";
+                } elseif ($rol == 5){
                     $tabla = "c_verificadores";
                 }
                 //echo $tabla;

@@ -14,7 +14,7 @@ $usuario=$_SESSION['usuario'];
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Verificadores - Conoceles</title>
+    <title>Validadores - Conoceles</title>
 
     <meta name="description" content="" />
 
@@ -74,7 +74,7 @@ $usuario=$_SESSION['usuario'];
                         if(isset($_REQUEST['gen_new_pass'])){
                         ?>
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Candidatos / Ayuntamientos /</span>
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Validadores /</span>
                             Nueva Contraseña</h4>
 
                         <div class="row">
@@ -87,11 +87,11 @@ $usuario=$_SESSION['usuario'];
                                             <hr style="border-top:1px dotted" />
                                         </div>
                                         <div class="card-body">
-                                            <form action="ayuntamientos.php" method="POST">
+                                            <form action="validadores.php" method="POST">
                                                 <div class="row">
                                                     <?php 
                                                     $id_user_new_pass=$_REQUEST['id_user_new_pass'];
-                                                    $query="SELECT * FROM `c_cand_ayun` WHERE `id_user` = ".$id_user_new_pass."";
+                                                    $query="SELECT * FROM `c_validadores` WHERE `id_user` = ".$id_user_new_pass."";
                                                     $resultados_3=mysqli_query($con, $query);
                                                     $filas_3=mysqli_fetch_array($resultados_3);
                                                     $nombre = $filas_3['nombre'];
@@ -165,7 +165,7 @@ $usuario=$_SESSION['usuario'];
                                                     <div class="col-lg-10"></div>
                                                     <div class="col-lg-2">
                                                         <input type="hidden" name="id_user_new_pass"
-                                                            value="<?php echo $id_user_new_pass;?>" required>
+                                                            value="<?php echo $id_user_new_pass;?>">
                                                         <input type="hidden" name="new_pass" value="1">
                                                         <button class="btn btn-outline-primary right d-grid w-100"
                                                             type="submit">Actualizar</button>
@@ -179,7 +179,7 @@ $usuario=$_SESSION['usuario'];
                                                     <hr style="border-top:1px dotted #ccc;" />
                                                 </div>
                                             </div>
-                                            <a href="ayuntamientos.php" class="menu-link"><button
+                                            <a href="validadores.php" class="menu-link"><button
                                                     class="btn btn-outline-danger right d-grid w-30">
                                                     Volver</button></a>
                                         </div>

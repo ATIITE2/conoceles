@@ -80,7 +80,7 @@ $usuario=$_SESSION['usuario'];
                                     <div class="card-header">
                                         <div class="row">
                                             <div class="col-lg-10">
-                                                <big><big><strong>Candidatos</strong></big></big>&nbsp;
+                                                <big><big><strong>Tipos de candidaturas</strong></big></big>&nbsp;
                                             </div>
                                         </div>
                                         <hr style="border-top:1px dotted" />
@@ -99,26 +99,18 @@ $usuario=$_SESSION['usuario'];
                                                                 type="button">COMUNIDADES</button>
                                                         </a> -->
                                                         <div class="btn-group">
-                                                            <button type="button" 
+                                                            <button type="button"
                                                                 class="btn btn-outline-primary dropdown-toggle"
                                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                                 DIPUTACIONES
                                                             </button>
                                                             <ul class="dropdown-menu">
-                                                                <!-- <li><a class="dropdown-item"
+                                                                <li><a class="dropdown-item"
                                                                         href="diputados_mr.php">MAYORÍA RELATIVA</a>
                                                                 </li>
                                                                 <li>
                                                                 <li><a class="dropdown-item"
                                                                         href="diputados_rp.php">REPRESENTACIÓN
-                                                                        PROPORCIONAL</a>
-                                                                </li> -->
-                                                                <li><a class="dropdown-item"
-                                                                        href="construccion.php">MAYORÍA RELATIVA</a>
-                                                                </li>
-                                                                <li>
-                                                                <li><a class="dropdown-item"
-                                                                        href="construccion.php">REPRESENTACIÓN
                                                                         PROPORCIONAL</a>
                                                                 </li>
 

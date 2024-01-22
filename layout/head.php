@@ -1,6 +1,6 @@
 <head>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="theme-color" content="#000000">
 
     <link rel="icon" href="/favicon.ico">

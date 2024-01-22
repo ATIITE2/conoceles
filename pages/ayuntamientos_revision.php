@@ -2,12 +2,16 @@
 session_start();
 include_once("./componentes/conexion.php");
 $usuario=$_SESSION['usuario'];
-$query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
+        $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
         $resultados_session=mysqli_query($con, $query);
         $filas_session=mysqli_fetch_array($resultados_session);
         $id_user_session = $filas_session["id_user"];
         $rol_session = $filas_session["id_rol"];
-        
+
+        $query="SELECT * FROM `c_validadores` WHERE  `id_user` = '$id_user_session'";
+        $resultados_vali=mysqli_query($con, $query);
+        $partido_politico=mysqli_fetch_array($resultados_vali);
+        $id_pp = $partido_politico["pp"];
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Ayuntamientos - Conoceles</title>
+    <title>Validaciones - Conoceles</title>
 
     <meta name="description" content="" />
 
@@ -168,24 +172,6 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
 ?>
 
 <body>
-
-    <!-- SE OBTIENE INFORMACION DE LA CUENTA EN SESSION  -->
-    <?php
-        $query="SELECT * FROM `cat_roles` WHERE  `id` = '$rol_session'";
-        $resultados_roles=mysqli_query($con, $query);
-        $nomb_rol=mysqli_fetch_array($resultados_roles);
-        $nombre_rol = $nomb_rol["nombre"];
-        //echo $rol;
-        if($rol_session == 1 || $rol_session == 2 ){
-            $tabla = "c_administradores";
-        } elseif ($rol_session == 3){
-            $tabla = "c_candidatos";
-        } elseif ($rol_session == 4){
-            $tabla = "c_verificadores";
-        }
-    ?>
-    <!-- SE OBTUVO INFORMACION DE LA CUENTA EN SESSION -->
-
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
@@ -207,7 +193,7 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <h4 class="fw-bold py-3 mb-4">
-                            <span class="text-muted fw-light"> Candidatos /</span>
+                            <span class="text-muted fw-light"> Validaciones /</span>
                             Ayuntamientos
                         </h4>
                         <!-- CONTENIDO -->
@@ -261,16 +247,6 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
                                             <div class="col-lg-10">
                                                 <big><big><strong>Ayuntamientos</strong></big></big>&nbsp;
                                             </div>
-                                            <div class="col-lg-2 text-center">
-                                                <ul class="nav nav-pills">
-                                                    <li class="nav-item">
-                                                        <a href="crud_cand_ayun.php" class="btn btn-outline-primary"
-                                                            type="button"><i class="bx bx-plus me-1"></i>
-                                                            <small>Agregar nuevo</small>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
                                         </div>
                                         <hr style="border-top:1px dotted" />
                                     </div>
@@ -281,44 +257,38 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
                                                     <table id="example" class="display table">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center">Nombre</th>
+                                                                <th class="text-center">Nombre del Candidato</th>
                                                                 <th class="text-center">Ayuntamiento</th>
-                                                                <th class="text-center">Candidatura</th>
-                                                                <th class="text-center">Estatus</th>
-                                                                <th class="text-center">Opciones</th>
+                                                                <th class="text-center">(CC) Fotografia</th>
+                                                                <th class="text-center">(CC) Medios de Contacto</th>
+                                                                <th class="text-center">(CC) Informacion</th>
+                                                                <th class="text-center">(CI) Identidad</th>
+                                                                <th class="text-center">Cuestionarios</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody class="table-border-bottom-0">
                                                             <?php
-                                                            if($rol_session=='1'){
-                                                                $query="SELECT * FROM `c_candidatos` WHERE `id_tipo_cand` = '2'";
-                                                            } else {
-                                                                $query="SELECT * FROM `c_candidatos` WHERE `id_tipo_cand` = '2' && `id_administrador` =  ".$id_user_session."";
-                                                            }
-                                                            $resultados=mysqli_query($con, $query);
-                                                            while($filas=mysqli_fetch_array($resultados)){
+                                                                $query="SELECT * FROM `c_cand_ayun` WHERE `pp` = '".$id_pp."'";
+                                                                $resultados=mysqli_query($con, $query);
+                                                                while($filas=mysqli_fetch_array($resultados)){
                                                                 //echo  $filas['id_area'];
                                                                 //echo $filas['id_user'];
                                                                 $query="SELECT * FROM `c_usuarios` WHERE `id_user` = ".$filas['id_user']."";
                                                                 $resultados_1=mysqli_query($con, $query);
                                                                 $filas_1=mysqli_fetch_array($resultados_1);
                                                                 $estatus = $filas_1['status'];
-                                                                $id_user_edit = $filas['id_user'];
 
                                                                 $query="SELECT * FROM `c_cand_ayun` WHERE `id_user` = ".$filas['id_user']."";
                                                                 $resultados_2=mysqli_query($con, $query);
                                                                 $filas_2=mysqli_fetch_array($resultados_2);
-                                                                //echo $query;
 
                                                                 $query="SELECT * FROM `cat_ayuntamientos` WHERE `id` = ".$filas_2['id_municipio']."";
                                                                 $resultados_3=mysqli_query($con, $query);
                                                                 $filas_3=mysqli_fetch_array($resultados_3);
-                                                                //echo $filas_3["nombre_municipio"];
                                                                 
                                                                 $query="SELECT * FROM `cat_pp` WHERE `id` = ".$filas_2['pp']."";
                                                                 $resultados_4=mysqli_query($con, $query);
                                                                 $filas_4=mysqli_fetch_array($resultados_4);
-                                                                //echo $filas_3["nombre_municipio"];
                                                                 ?>
                                                             <tr>
                                                                 <td><i
@@ -326,37 +296,111 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
                                                                     <strong><?php echo $filas_2['nombre'];?>&nbsp;<?php echo $filas_2['a_pate'];?>&nbsp;<?php echo $filas_2['a_mate']; ?></strong>
                                                                 </td>
                                                                 <td><?php echo $filas_3["nombre_municipio"]; ?></td>
-                                                                <td>
-                                                                    <?php echo $filas_4['nom_com'] ?>
+                                                                <!--FOTO-->
+                                                                <td class="text-center">
+                                                                    <?php
+                                                                    $query="SELECT `status` FROM `cuest_curricular_foto` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                    $res_1=mysqli_query($con, $query);
+                                                                    $f_1_r=mysqli_fetch_array($res_1);
+                                                                    $f_1=$f_1_r['status'];
+                                                                    if($f_1==1){
+                                                                ?>
+                                                                    <i class='bx bxs-check-circle text-success'></i>
+                                                                    Verificado y Publicado
+                                                                    <?php
+                                                                    } elseif($f_1==2){
+                                                                ?><i class='bx bxs-circle text-blue'
+                                                                        style='color:#007bff'></i>
+                                                                    Validado Sin Verificar
+                                                                    <?php
+                                                                    } elseif($f_1==3){
+                                                                ?><i class='bx bxs-circle text-info'></i>
+                                                                    Constestado Sin Validar
+                                                                    <?php    
+                                                                    } elseif($f_1==4){
+                                                                ?><i class='bx bxs-circle text-secondary'></i>
+                                                                    Sin Datos
+                                                                    <?php } ?>
+                                                                </td>
+                                                                <!--CONTACTO-->
+                                                                <td class="text-center">
+                                                                    <?php
+                                                                    $query="SELECT `status` FROM `cuest_curricular_mc` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                    $res_2=mysqli_query($con, $query);
+                                                                    $f_2_r=mysqli_fetch_array($res_2);
+                                                                    $f_2=$f_2_r['status'];
+                                                                    if($f_2==1){
+                                                                ?>
+                                                                    <i class='bx bxs-check-circle text-success'></i>
+                                                                    Verificado y Publicado
+                                                                    <?php
+                                                                    } elseif($f_2==2){
+                                                                ?><i class='bx bxs-circle text-blue'
+                                                                        style='color:#007bff'></i>
+                                                                    Validado Sin Verificar
+                                                                    <?php
+                                                                    } elseif($f_2==3){
+                                                                ?><i class='bx bxs-circle text-info'></i>
+                                                                    Constestado Sin Validar
+                                                                    <?php    
+                                                                    } elseif($f_2==4){
+                                                                ?><i class='bx bxs-circle text-secondary'></i>
+                                                                    Sin Datos
+                                                                    <?php } ?>
+                                                                </td>
+                                                                <!--CURRICULAR-->
+                                                                <td class="text-center">
+                                                                    <?php
+                                                                    $query="SELECT `status` FROM `cuest_curricular` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                    $res_3=mysqli_query($con, $query);
+                                                                    $f_3_r=mysqli_fetch_array($res_3);
+                                                                    $f_3=$f_3_r['status'];
+                                                                    if($f_3==1){
+                                                                ?>
+                                                                    <i class='bx bxs-check-circle text-success'></i>
+                                                                    Verificado y Publicado
+                                                                    <?php
+                                                                    } elseif($f_3==2){
+                                                                ?><i class='bx bxs-circle text-blue'
+                                                                        style='color:#007bff'></i>
+                                                                    Validado Sin Verificar
+                                                                    <?php
+                                                                    } elseif($f_3==3){
+                                                                ?><i class='bx bxs-circle text-info'></i>
+                                                                    Constestado Sin Validar
+                                                                    <?php    
+                                                                    } elseif($f_3==4){
+                                                                ?><i class='bx bxs-circle text-secondary'></i>
+                                                                    Sin Datos
+                                                                    <?php } ?>
+                                                                </td>
+                                                                <!--IDENTIDAD-->
+                                                                <td class="text-center">
+                                                                    <?php
+                                                                    $query="SELECT `status` FROM `cuest_identidad` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                    $res_4=mysqli_query($con, $query);
+                                                                    $f_4_r=mysqli_fetch_array($res_4);
+                                                                    $f_4=$f_4_r['status'];
+                                                                    if($f_4==1){
+                                                                ?>
+                                                                    <i class='bx bxs-check-circle text-success'></i>
+                                                                    Verificado y Publicado
+                                                                    <?php
+                                                                    } elseif($f_4==2){
+                                                                ?><i class='bx bxs-circle text-blue'
+                                                                        style='color:#007bff'></i>
+                                                                    Validado Sin Verificar
+                                                                    <?php
+                                                                    } elseif($f_4==3){
+                                                                ?><i class='bx bxs-circle text-info'></i>
+                                                                    Constestado Sin Validar
+                                                                    <?php    
+                                                                    } elseif($f_4==4){
+                                                                ?><i class='bx bxs-circle text-secondary'></i>
+                                                                    Sin Datos
+                                                                    <?php } ?>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <?php if($estatus==1){ ?>
-                                                                    <a href="?edo1=<?=$filas['id_user']?>" type="button"
-                                                                        title="Desactivar"
-                                                                        class="btn btn-success btn-circle"><i
-                                                                            class="bx bx-check"
-                                                                            aria-hidden="true"></i></a>
-                                                                    <?php }else if($estatus==2){ ?>
-                                                                    <a href="?edo2=<?=$filas['id_user']?>" type="button"
-                                                                        title="Activar"
-                                                                        class="btn btn-warning bx bx-x btn-circle"></a>
-                                                                    <?php } ?>
-
-                                                                    <?php if($estatus == "1"){?>
-                                                                    <span
-                                                                        class="badge bg-label-success me-1">Activo</span>
-                                                                    <?php } else if($estatus == "2"){?>
-                                                                    <span
-                                                                        class="badge bg-label-warning me-1">Inactivo</span>
-                                                                    <?php } else if($estatus == "3"){?>
-                                                                    <span
-                                                                        class="badge bg-label-danger me-1">Eliminado</span>
-                                                                    <?php }?>
-                                                                </td>
-                                                                <?php 
-                                                                    if($estatus!="3"){
-                                                                    ?>
-                                                                <td>
                                                                     <div class="dropdown">
                                                                         <button type="button"
                                                                             class="btn p-0 dropdown-toggle hide-arrow"
@@ -364,38 +408,88 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
                                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                                         </button>
                                                                         <div class="dropdown-menu">
-                                                                            <form action="crud_cand_ayun.php"
+                                                                            <!-- CUESTIONARIO CURRICULAR (FOTOGRAFIA) -->
+                                                                            <?php
+                                                                            $query="SELECT `status` FROM `cuest_curricular_foto` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                            $resultados_4=mysqli_query($con, $query);
+                                                                            $filas_4=mysqli_fetch_array($resultados_4);
+                                                                            $status_ft=$filas_4['status'];
+                                                                            
+                                                                            if($status_ft==3){
+                                                                            ?>
+                                                                            <form action="cand_ayun_cc_ft.php"
                                                                                 method="POST">
-                                                                                <?php echo '<input type="hidden" name="id_user_edit" value="'.$id_user_edit.'">';?>
+                                                                                <?php echo '<input type="hidden" name="id_user_edit" id="id_user_edit" value="'.$filas['id_user'].'">';?>
                                                                                 <input type="hidden" name="editar"
                                                                                     value="1">
-                                                                                <button class="btn w-100"
-                                                                                    type="submit"><i
-                                                                                        class="bx bx-edit-alt me-1"></i>Editar</button>
+                                                                                <button class="btn btn-outline w-100"
+                                                                                    type="submit" ><i
+                                                                                        class="bx bx-edit-alt me-1"></i>FOTOGRAFIA</button>
                                                                             </form>
-                                                                            <form action="password_edit_ayun.php"
+                                                                            <?php } ?>
+                                                                            <!-- CUESTIONARIO CURRICULAR (MEDIOS DE CONTACTO) -->
+                                                                            <?php
+                                                                            $query="SELECT `status` FROM `cuest_curricular_mc` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                            $resultados_5=mysqli_query($con, $query);
+                                                                            $filas_5=mysqli_fetch_array($resultados_5);
+                                                                            $status_mc=$filas_5['status'];
+                                                                            
+                                                                            if($status_mc==3){
+                                                                            ?>
+                                                                            <form action="cand_ayun_cc_mc.php"
                                                                                 method="POST">
-                                                                                <?php echo '<input type="hidden" name="id_user_new_pass" value="'.$id_user_edit.'">';?>
+                                                                                <?php echo '<input type="hidden" name="id_user_cand_edit" value="'.$filas['id_user'].'">';?>
                                                                                 <input type="hidden" name="gen_new_pass"
                                                                                     value="1">
                                                                                 <button class="btn w-100"
                                                                                     type="submit"><i
-                                                                                        class="bx bx-edit-alt me-1"></i>Nueva
-                                                                                    Contraseña</button>
+                                                                                        class="bx bx-edit-alt me-1"></i>MEDIOS
+                                                                                    DE CONTACTO</button>
                                                                             </form>
-                                                                            <form action="?edo3=<?=$filas['id_user']?>"
+                                                                            <?php } ?>
+                                                                            <!-- CUESTIONARIO CURRICULAR (FOTOGRAFIA) -->
+                                                                            <?php
+                                                                            $query="SELECT `status` FROM `cuest_curricular` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                            $resultados_6=mysqli_query($con, $query);
+                                                                            $filas_6=mysqli_fetch_array($resultados_6);
+                                                                            $status_cc=$filas_6['status'];
+                                                                            
+                                                                            if($status_cc==3){
+                                                                            ?>
+                                                                            <form action="cand_ayun_cc_ic.php"
                                                                                 method="POST">
-                                                                                <?php echo '<input type="hidden" name="eliminar" value="'.$id_user_edit.'">';?>
-                                                                                <input type="hidden" name="eliminar"
+                                                                                <?php echo '<input type="hidden" name="id_user_new_pass" value="'.$filas['id_user'].'">';?>
+                                                                                <input type="hidden" name="gen_new_pass"
                                                                                     value="1">
                                                                                 <button class="btn w-100"
                                                                                     type="submit"><i
-                                                                                        class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                                        class="bx bx-edit-alt me-1"></i>INFORMACION
+                                                                                    CURRICULAR</button>
                                                                             </form>
+                                                                            <?php } ?>
+                                                                            <!-- CUESTIONARIO CURRICULAR (FOTOGRAFIA) -->
+                                                                            <?php
+                                                                            $query="SELECT `status` FROM `cuest_identidad` WHERE `id_user_cand` = ".$filas['id_user']."";
+                                                                            $resultados_7=mysqli_query($con, $query);
+                                                                            $filas_7=mysqli_fetch_array($resultados_7);
+                                                                            $status_ci=$filas_7['status'];
+                                                                            
+                                                                            if($status_ci==3){
+                                                                            ?>
+                                                                            <form action="cand_ayun_ci_ci.php"
+                                                                                method="POST">
+                                                                                <?php echo '<input type="hidden" name="id_user_new_pass" value="'.$filas['id_user'].'">';?>
+                                                                                <input type="hidden" name="gen_new_pass"
+                                                                                    value="1">
+                                                                                <button class="btn w-100"
+                                                                                    type="submit"><i
+                                                                                        class="bx bx-edit-alt me-1"></i>CUESTIONARIO
+                                                                                    IDENTIDAD</button>
+                                                                            </form>
+                                                                            <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <?php } ?>
                                                             </tr>
                                                             <?php } ?>
                                                         </tbody>
@@ -407,7 +501,7 @@ $query="SELECT * FROM `c_usuarios` WHERE  `user_name` = '$usuario'";
                                     <div class="card-footer">
                                         <hr style="border-top:1px dotted" />
                                         <div class="col-lg-2">
-                                            <a href="candidatos.php" class="menu-link"><button
+                                            <a href="index.php" class="menu-link"><button
                                                     class="btn btn-outline-danger right d-grid w-30">
                                                     Volver</button></a>
                                         </div>

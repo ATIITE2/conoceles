@@ -65,7 +65,7 @@ if(isset($_REQUEST['guardar'])){
     $password_hash=hash("crc32",$password);
 
     $query="INSERT INTO `c_usuarios` (`user_name`,`password`,`status`,`id_rol`,`fecha_reg`) 
-    VALUES ('".$usr_nme."','".$password_hash."','1','7',NOW());";
+    VALUES ('".$usr_nme."','".$password_hash."','1','5',NOW());";
     mysqli_query($con, $query);
     $last_id = mysqli_insert_id($con);
     //echo $query;

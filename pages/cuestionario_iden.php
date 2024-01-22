@@ -206,11 +206,11 @@ if(!isset($_SESSION['usuario'])){
                             } 
                             ?>
                         <?php 
-                                $query="SELECT * FROM `cuest_identidad` WHERE  `id_user_cand` = '$id_user'";
-                                $resultados_3=mysqli_query($con, $query);
-                                $filas_3=mysqli_fetch_array($resultados_3);
-                                $status_cuest = $filas_3['status'];
-                            ?>
+                            $query="SELECT * FROM `cuest_identidad` WHERE  `id_user_cand` = '$id_user'";
+                            $resultados_3=mysqli_query($con, $query);
+                            $filas_3=mysqli_fetch_array($resultados_3);
+                            $status_cuest = $filas_3['status'];
+                        ?>
 
                         <?php if($status_cuest =='3'){ ?>
                         <div class="row">
@@ -1935,13 +1935,13 @@ if(!isset($_SESSION['usuario'])){
                                                         Volver</button></a>
                                             </div>
                                             <div class="col-lg-8">
-                                            <div class="text-center">
-                                                <button id="refresh" class="btn btn-outline-warning btn-lg center w-30">
-                                                    Borrar selecciones / Volver a comenzar</button>
+                                                <div class="text-center">
+                                                    <button id="refresh"
+                                                        class="btn btn-outline-warning btn-lg center w-30">
+                                                        Borrar selecciones / Volver a comenzar</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        </div>
-
                                     </div>
                                 </div>
 
@@ -2068,6 +2068,8 @@ if(!isset($_SESSION['usuario'])){
             }
         })
     });
+    </script>
+    <script>
     $(document).ready(function() {
 
         $('#myModal').modal({
