@@ -135,7 +135,7 @@ foreach ($cat_chrt as $row) {
                 </div>
             </div>
         </div><br>
-        <div class="row flex-column flex-md-row d-show">
+        <div class="row flex-column flex-md-row d-none">
             <ul class="nav nav-tabs d-none justify-content-center justify-content-md-center nav-pills" id="tab_resp1">
                 <li class="nav-item" role="presentation" onclick="swch_grafica(14); muestraGrafica(14,'REMOVER resp 1',2); activarListEst('_1');">
                     <a class="nav-link chrtlink active" id="chrt_link_1">rem 1</a>

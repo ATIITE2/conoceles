@@ -1,11 +1,10 @@
 <?php
 
 $cred = array();
-$casa=false;
+
 $cred["dbhost"]="localhost";
-$cred["dbusr"]= ($casa) ? "franktlx" : "lefranktlx";
-$cred["dbpass"]= ($casa) ? "H0l4H0l4" : "HolaHola";
-// $cred["dbname"]="charttestdb";
+$cred["dbusr"]= "lefranktlx";
+$cred["dbpass"]= "HolaHola";
 $cred["dbname"]="conoceles_db";
 
 
