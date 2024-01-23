@@ -20,7 +20,7 @@ if(isset($_FILES['file'])){
     $tamano_bytes = $_FILES['file']["size"];
 
     // Obtener el nombre del archivo desde la base de datos MySQL
-    $mysqli = new mysqli("localhost", "root", "", "conoceles_db");
+    $mysqli = new mysqli("localhost", "lefranktlx", "HolaHola", "conoceles_db");
     $result = $mysqli->query("SELECT * FROM `c_usuarios` WHERE id_user = ".$id_user.""); // Cambia "1" por el ID correspondiente
     
     if($result->num_rows > 0){
@@ -31,7 +31,7 @@ if(isset($_FILES['file'])){
     }
 
     // Subir el archivo al servidor FTP
-    $remote_file = '/prueba/'.$filename;
+    $remote_file = '/assets/img/perfiles/'.$filename;
     $local_file = $file['tmp_name'];
     if($tamano_bytes<700000){
         if(ftp_put($ftp_conn, $remote_file, $local_file, FTP_BINARY)){

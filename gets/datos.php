@@ -30,7 +30,7 @@ function getCatList($n){
 
 // lista de catálogos de la página estadísticas
 function getCatListEst($n){
-    if($n == 1) $q = "SELECT(SELECT Count(cc.id) FROM cuest_curricular cc) curricular, (SELECT Count(ci.id) FROM cuest_identidad ci) identidad";
+    if($n == 1) $q = "SELECT(SELECT Count(cc.id) FROM cuest_curricular cc WHERE cc.status=1) curricular, (SELECT Count(ci.id) FROM cuest_identidad ci WHERE ci.status=1) identidad";
     if($n == 2) $q = "SELECT * FROM cat_charts_estad ORDER BY id";
 
     $result = dbConexion($q);
@@ -44,7 +44,7 @@ function getjsData($chart_num){
 
     $ua="UNION ALL";
     $t="(SELECT COUNT(px.id) FROM c_candidatos px)"; // listo
-    $t1="(SELECT COUNT(p1.id) FROM c_candidatos p1, cuest_curricular ccu1 WHERE p1.id_user=ccu1.id_user_cand AND ccu1.id_grad_acad=ga.id)"; // listo
+    $t1="(SELECT COUNT(p1.id) FROM c_candidatos p1, cuest_curricular ccu1 WHERE ccu1.status=1 AND p1.id_user=ccu1.id_user_cand AND ccu1.id_grad_acad=ga.id)"; // listo
 
     // listo
     if($chart_num==1) $q[] = "SELECT c_pp.nom_cor label, (SELECT COUNT(cca.id) FROM c_cand_ayun cca WHERE cca.pp=c_pp.id)+
@@ -107,20 +107,20 @@ function getjsData($chart_num){
     }
     
     // Queries reciben respuesta afirmativa  LISTO
-    $sel1[0]="SELECT (COUNT(p0.id)) y, CONCAT('Sí') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas dijeron sí') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE p0.id_user=cid0.id_user_cand AND cid0.";
-    $sel1[1]="SELECT (COUNT(p0.id)) y, CONCAT('Jóvenes') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas se consideran jóvenes') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE p0.id_user=cid0.id_user_cand AND cid0.";
-    $sel1[2]="SELECT (COUNT(p0.id)) y, CONCAT('Mayores') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas se consideran mayores') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE p0.id_user=cid0.id_user_cand AND cid0.";
+    $sel1[0]="SELECT (COUNT(p0.id)) y, CONCAT('Sí') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas dijeron sí') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE cid0.status=1 AND p0.id_user=cid0.id_user_cand AND cid0.";
+    $sel1[1]="SELECT (COUNT(p0.id)) y, CONCAT('Jóvenes') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas se consideran jóvenes') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE cid0.status=1 AND p0.id_user=cid0.id_user_cand AND cid0.";
+    $sel1[2]="SELECT (COUNT(p0.id)) y, CONCAT('Mayores') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas se consideran mayores') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE cid0.status=1 AND p0.id_user=cid0.id_user_cand AND cid0.";
 
     // Queries reciben respuesta negativa  LISTO
-    $sel2[0]="SELECT (COUNT(p1.id)) y, CONCAT('No') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas dijeron no') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE p1.id_user=cid1.id_user_cand AND cid1.";
-    $sel2[1]="SELECT (COUNT(p1.id)) y, CONCAT('No jóvenes') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas no se consideran jóvenes') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE p1.id_user=cid1.id_user_cand AND cid1.";
-    $sel2[2]="SELECT (COUNT(p1.id)) y, CONCAT('No mayores') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas no se consideran mayores') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE p1.id_user=cid1.id_user_cand AND cid1.";
+    $sel2[0]="SELECT (COUNT(p1.id)) y, CONCAT('No') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas dijeron no') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE cid1.status=1 AND p1.id_user=cid1.id_user_cand AND cid1.";
+    $sel2[1]="SELECT (COUNT(p1.id)) y, CONCAT('No jóvenes') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas no se consideran jóvenes') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE cid1.status=1 AND p1.id_user=cid1.id_user_cand AND cid1.";
+    $sel2[2]="SELECT (COUNT(p1.id)) y, CONCAT('No mayores') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas no se consideran mayores') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE cid1.status=1 AND p1.id_user=cid1.id_user_cand AND cid1.";
 
     // Query recibe sin respuesta  LISTO
-    $sel3="SELECT (COUNT(p2.id)) y, CONCAT('Sin respuesta') legendText, CONCAT(ROUND((COUNT(p2.id)*100)/".$t.",2),'% Personas no respondieron') indexLabel FROM c_candidatos p2, cuest_identidad cid2 WHERE p2.id_user=cid2.id_user_cand AND cid2.";
+    $sel3="SELECT (COUNT(p2.id)) y, CONCAT('Sin respuesta') legendText, CONCAT(ROUND((COUNT(p2.id)*100)/".$t.",2),'% Personas no respondieron') indexLabel FROM c_candidatos p2, cuest_identidad cid2 WHERE cid2.status=1 AND p2.id_user=cid2.id_user_cand AND cid2.";
 
     // listo
-    if($chart_num==5) $q[] = "SELECT CASE WHEN (ccu.ing_mensual < 5000) THEN 'Menos de $5,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 5000 AND 10000) THEN 'De $5,000 a $10,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 10000.01 AND 20000) THEN 'De más de $10,000 a $20,000' ELSE CASE WHEN (ccu.ing_mensual > 20000) THEN 'Más de $20,000' END END END END label, ROUND((COUNT(ccu.ing_mensual)*100)/".$t.",2) y FROM cuest_curricular ccu GROUP BY label";
+    if($chart_num==5) $q[] = "SELECT CASE WHEN (ccu.ing_mensual < 5000) THEN 'Menos de $5,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 5000 AND 10000) THEN 'De $5,000 a $10,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 10000.01 AND 20000) THEN 'De más de $10,000 a $20,000' ELSE CASE WHEN (ccu.ing_mensual > 20000) THEN 'Más de $20,000' END END END END label, ROUND((COUNT(ccu.ing_mensual)*100)/".$t.",2) y FROM cuest_curricular ccu WHERE ccu.status=1 GROUP BY label";
     
     // listo  SI=1 NO=2 SIN_RESPUESTA=3
     if($chart_num==6) $q[] = $sel1[0]."indigena_p1=1 ".$ua." ".$sel2[0]."indigena_p1=2 ".$ua." ".$sel3."indigena_p1=3";
@@ -149,20 +149,19 @@ function getjsDataEst($chart_num){
 
     $ua="UNION ALL";
     $t="(SELECT COUNT(px.id) FROM c_candidatos px)";  // listo
-    $t1="SELECT count(ccu1.id) FROM cuest_curricular ccu1 WHERE ccu1.id_grad_acad=ga.id";  // listo
-
+    $t1="SELECT count(ccu1.id) FROM cuest_curricular ccu1 WHERE ccu1.status=1 AND ccu1.id_grad_acad=ga.id";  // listo
 
     
-    // POR AHORA SON DATOS DE PRUEBA, SE VA A REQUEIR ANALIZAR QUE DATOS SON LOS QUE CONVENDRÁN MOSTRARSE PARA CADA
+    // POR AHORA SON DATOS DE PRUEBA, SE VA A REQUERIR ANALIZAR QUE DATOS SON LOS QUE CONVENDRÁN MOSTRARSE PARA CADA
     // OPCIÓN DE LA LISTA DE ESTADÍSITCAS
     // listo
-    if($chart_num==13) $q[] = "SELECT c_pp.nom_cor label, (SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_curricular cc0 WHERE cca.id_user=cc0.id_user_cand AND cca.pp=c_pp.id)+
-                              (SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_curricular cc1 WHERE ccdmr.id_user=cc1.id_user_cand AND ccdmr.pp=c_pp.id)+
-                              (SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_curricular cc2 WHERE ccdrp.id_user=cc2.id_user_cand AND ccdrp.pp=c_pp.id) y
+    if($chart_num==13) $q[] = "SELECT c_pp.nom_cor label, (SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_curricular cc0 WHERE cc0.status=1 AND cca.id_user=cc0.id_user_cand AND cca.pp=c_pp.id)+
+                              (SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_curricular cc1 WHERE cc1.status=1 AND ccdmr.id_user=cc1.id_user_cand AND ccdmr.pp=c_pp.id)+
+                              (SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_curricular cc2 WHERE cc2.status=1 AND ccdrp.id_user=cc2.id_user_cand AND ccdrp.pp=c_pp.id) y
                               FROM cat_pp c_pp ORDER BY c_pp.id";
     
     // listo
-    if($chart_num==14) $q[] = "SELECT CASE WHEN (ccu.ing_mensual < 5000) THEN 'Menos de $5,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 5000 AND 10000) THEN 'De $5,000 a $10,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 10000.01 AND 20000) THEN 'De más de $10,000 a $20,000' ELSE CASE WHEN (ccu.ing_mensual > 20000) THEN 'Más de $20,000' END END END END label, ROUND((COUNT(ccu.ing_mensual)*100)/".$t.",2) y FROM cuest_curricular ccu GROUP BY label";
+    if($chart_num==14) $q[] = "SELECT CASE WHEN (ccu.ing_mensual < 5000) THEN 'Menos de $5,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 5000 AND 10000) THEN 'De $5,000 a $10,000' ELSE CASE WHEN (ccu.ing_mensual BETWEEN 10000.01 AND 20000) THEN 'De más de $10,000 a $20,000' ELSE CASE WHEN (ccu.ing_mensual > 20000) THEN 'Más de $20,000' END END END END label, ROUND((COUNT(ccu.ing_mensual)*100)/".$t.",2) y FROM cuest_curricular ccu WHERE ccu.status=1 GROUP BY label";
 
     // listo
     if($chart_num==15) $q[] = "SELECT c_pp.nom_cor label, (SELECT COUNT(cca.id) FROM c_cand_ayun cca WHERE cca.pp=c_pp.id)+
@@ -172,9 +171,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==16) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_curricular cc0 WHERE cca.id_user=cc0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_curricular cc1 WHERE ccdmr.id_user=cc1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_curricular cc2 WHERE ccdrp.id_user=cc2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_curricular cc0 WHERE cc0.status=1 AND cca.id_user=cc0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_curricular cc1 WHERE cc1.status=1 AND ccdmr.id_user=cc1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_curricular cc2 WHERE cc2.status=1 AND ccdrp.id_user=cc2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -192,9 +191,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==17) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -212,9 +211,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==18) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.indigena_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.indigena_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.indigena_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.indigena_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.indigena_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.indigena_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -230,25 +229,12 @@ function getjsDataEst($chart_num){
         $q[]="SELECT (".$q_cca."4)+(".$q_ccdmr."4)+(".$q_ccdrp."4)".$q_cond;
     }
 
-    // Queries reciben respuesta afirmativa  por eliminar
-    // $sel1[0]="SELECT (COUNT(p0.id)) y, CONCAT('Sí') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas dijeron sí') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE p0.id_user=cid0.id_user_cand AND cid0.";
-    /* $sel1[1]="SELECT (COUNT(p0.id)) y, CONCAT('Jóvenes') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas se consideran jóvenes') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE p0.id_user=cid0.id_user_cand AND cid0.";
-    $sel1[2]="SELECT (COUNT(p0.id)) y, CONCAT('Mayores') legendText, CONCAT(ROUND((COUNT(p0.id)*100)/".$t.",2),'% Personas se consideran mayores') indexLabel FROM c_candidatos p0, cuest_identidad cid0 WHERE p0.id_user=cid0.id_user_cand AND cid0."; */
-
-    // Queries reciben respuesta negativa  por eliminar
-    //$sel2[0]="SELECT (COUNT(p1.id)) y, CONCAT('No') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas dijeron no') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE p1.id_user=cid1.id_user_cand AND cid1.";
-    /* $sel2[1]="SELECT (COUNT(p1.id)) y, CONCAT('No jóvenes') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas no se consideran jóvenes') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE p1.id_user=cid1.id_user_cand AND cid1.";
-    $sel2[2]="SELECT (COUNT(p1.id)) y, CONCAT('No mayores') legendText, CONCAT(ROUND((COUNT(p1.id)*100)/".$t.",2),'% Personas no se consideran mayores') indexLabel FROM c_candidatos p1, cuest_identidad cid1 WHERE p1.id_user=cid1.id_user_cand AND cid1."; */
-
-    // Query recibe sin respuesta  por eliminar
-    // $sel3="SELECT (COUNT(p2.id)) y, CONCAT('Sin respuesta') legendText, CONCAT(ROUND((COUNT(p2.id)*100)/".$t.",2),'% Personas no respondieron') indexLabel FROM c_candidatos p2, cuest_identidad cid2 WHERE p2.id_user=cid2.id_user_cand AND cid2.";
-
     //Nuevos queries
-    $q_cca_ini="SELECT count(cca.id) FROM c_cand_ayun cca, cuest_identidad ci WHERE cca.pp=pp.id AND cca.id_user=ci.id_user_cand";
-    $q_ccdmr_ini="SELECT count(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci WHERE ccdmr.pp=pp.id AND ccdmr.id_user=ci.id_user_cand";
-    $q_ccdrp_ini="SELECT count(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci WHERE ccdrp.pp=pp.id AND ccdrp.id_user=ci.id_user_cand";
+    $q_cca_ini="SELECT count(cca.id) FROM c_cand_ayun cca, cuest_identidad ci WHERE ci.status=1 AND cca.pp=pp.id AND cca.id_user=ci.id_user_cand";
+    $q_ccdmr_ini="SELECT count(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci WHERE ci.status=1 AND ccdmr.pp=pp.id AND ccdmr.id_user=ci.id_user_cand";
+    $q_ccdrp_ini="SELECT count(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci WHERE ci.status=1 AND ccdrp.pp=pp.id AND ccdrp.id_user=ci.id_user_cand";
     $q_cond_ini=" indexLabel FROM cat_pp pp ORDER BY pp.id";
-    $t1_ini="SELECT count(ccu1.id) FROM cuest_curricular ccu1, cuest_identidad ci1 WHERE ccu1.id_user_cand=ci1.id_user_cand AND ccu1.id_grad_acad=ga.id AND ci1.";
+    $t1_ini="SELECT count(ccu1.id) FROM cuest_curricular ccu1, cuest_identidad ci1 WHERE ccu1.id_user_cand=ci1.id_user_cand AND ccu1.id_grad_acad=ga.id AND ccu1.status=1 AND ci1.status=1 AND ci1.";
 
 
     if($chart_num==19) {
@@ -262,9 +248,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==21) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.discapacidad_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.discapacidad_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.discapacidad_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.discapacidad_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.discapacidad_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.discapacidad_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -291,9 +277,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==24) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.afromexicano_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.afromexicano_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.afromexicano_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.afromexicano_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.afromexicano_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.afromexicano_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -320,9 +306,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==27) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.lgbt_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.lgbt_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.lgbt_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.lgbt_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.lgbt_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.lgbt_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -349,9 +335,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==30) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.migrante_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.migrante_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.migrante_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.migrante_p1=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.migrante_p1=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.migrante_p1=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -378,9 +364,9 @@ function getjsDataEst($chart_num){
     
     // listo
     if($chart_num==33) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.joven_mayor=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.joven_mayor=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.joven_mayor=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.joven_mayor=1 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.joven_mayor=1 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.joven_mayor=1 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -407,9 +393,9 @@ function getjsDataEst($chart_num){
 
     // listo
     if($chart_num==36) {
-        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.joven_mayor=2 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
-        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.joven_mayor=2 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
-        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.joven_mayor=2 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
+        $q_cca="SELECT COUNT(cca.id) FROM c_cand_ayun cca, cuest_identidad ci0 WHERE ci0.status=1 AND ci0.joven_mayor=2 AND cca.id_user=ci0.id_user_cand AND cca.pp=pp.id AND cca.sexo=";
+        $q_ccdmr="SELECT COUNT(ccdmr.id) FROM c_cand_dip_mr ccdmr, cuest_identidad ci1 WHERE ci1.status=1 AND ci1.joven_mayor=2 AND ccdmr.id_user=ci1.id_user_cand AND ccdmr.pp=pp.id AND ccdmr.sexo=";
+        $q_ccdrp="SELECT COUNT(ccdrp.id) FROM c_cand_dip_rp ccdrp, cuest_identidad ci2 WHERE ci2.status=1 AND ci2.joven_mayor=2 AND ccdrp.id_user=ci2.id_user_cand AND ccdrp.pp=pp.id AND ccdrp.sexo=";
         $q_cond=" y, pp.nom_cor label FROM cat_pp pp ORDER BY pp.id";
 
         // Para sexo femenino sexo=1
@@ -493,10 +479,28 @@ function construirQDataCandidato($n){
            cs".$n.".nombre sexo,
            ctc".$n.".nombre cargo,
            ctc".$n.".nombre candidatura,
+
+           IFNULL(ccf".$n.".ruta, '-') cand_img,
+
            IFNULL(pp".$n.".url_img, 'sin definir') pp_img,
-           CONCAT('aqui estará telefono') tel,
-           CONCAT('aqui estará correo') mail,
-           CONCAT('aqui estará url red social') url_red_soc,
+
+           IF(ccmc".$n.".face_op=1, ccmc".$n.".face_tx, '-') face,
+           IF(ccmc".$n.".twit_op=1, ccmc".$n.".twit_tx, '-') twit,
+           IF(ccmc".$n.".yout_op=1, ccmc".$n.".yout_tx, '-') yout,
+           IF(ccmc".$n.".inst_op=1, ccmc".$n.".inst_tx, '-') inst,
+           IF(ccmc".$n.".tikt_op=1, ccmc".$n.".tikt_tx, '-') tikt,
+           IF(ccmc".$n.".otra_op=1, ccmc".$n.".otra_tx, '-') otrat,
+           IFNULL(ccmc".$n.".pagina_w, '-') pagina_w,
+           IFNULL(ccmc".$n.".mail_1, '-') mail_1,
+           IFNULL(ccmc".$n.".mail_2, '-') mail_2,
+           IFNULL(ccmc".$n.".mail_3, '-') mail_3,
+           IFNULL(ccmc".$n.".tel_1, '-') tel_1,
+           IFNULL(ccmc".$n.".tel_2, '-') tel_2,
+           IFNULL(ccmc".$n.".tel_3, '-') tel_3,
+           IFNULL(ccmc".$n.".dire_1, '-') dire_1,
+           IFNULL(ccmc".$n.".dire_2, '-') dire_2,
+           IFNULL(ccmc".$n.".dire_3, '-') dire_3,
+
            cga".$n.".nombre_com grado,
            ccu".$n.".historia_prof,
            ccu".$n.".otra_form_acad,
@@ -504,15 +508,29 @@ function construirQDataCandidato($n){
            ccu".$n.".prop_1,
            ccu".$n.".prop_2,
            ccu".$n.".prop_gen,
-           ccu".$n.".tray_politica
+           ccu".$n.".tray_politica,
+
+           cid".$n.".indigena_p1,
+           cid".$n.".discapacidad_p1,
+           cid".$n.".afromexicano_p1,
+           cid".$n.".lgbt_p1,
+           cid".$n.".joven_mayor
     FROM ".$tabla[$n]." ".$ta[$n]."
         JOIN c_candidatos c".$n." ON ".$ta[$n].".id_user=c".$n.".id_user
         JOIN cat_tipo_cand ctc".$n." ON c".$n.".id_tipo_cand=ctc".$n.".id
         JOIN cat_pp pp".$n." ON ".$ta[$n].".pp=pp".$n.".id
+
+        JOIN cuest_identidad cid".$n." ON ".$ta[$n].".id_user=cid".$n.".id_user_cand
         JOIN cuest_curricular ccu".$n." ON ".$ta[$n].".id_user=ccu".$n.".id_user_cand
+
+        JOIN cuest_curricular_foto ccf".$n." ON ".$ta[$n].".id_user=ccf".$n.".id_user_cand
+        JOIN cuest_curricular_mc ccmc".$n." ON ".$ta[$n].".id_user=ccmc".$n.".id_user_cand
+
         JOIN cat_grad_academ cga".$n." ON ccu".$n.".id_grad_acad=cga".$n.".id
         JOIN cat_sexo cs".$n." ON ".$ta[$n].".sexo=cs".$n.".id
-    WHERE ".$ta[$n].".id_user=";
+    WHERE cid".$n.".status=1
+    AND ccu".$n.".status=1
+    AND ".$ta[$n].".id_user=";
 
     return $query;
 }

@@ -79,27 +79,36 @@ if($num == 1) {
     }
 
     $q[0] = "SELECT cca.id_user, CONCAT(cca.nombre, ' ', cca.a_pate, ' ',cca.a_mate) nombres, ctc0.nombre cargo, pp0.nom_com afiliacion, ".$edad[0]." edad, cga0.nombre_com grad_academ, cca.id_user url_perfil
-          FROM c_cand_ayun cca, c_candidatos c0, cat_tipo_cand ctc0, cat_pp pp0, cuest_curricular ccu0, cat_grad_academ cga0
+          FROM c_cand_ayun cca, c_candidatos c0, cat_tipo_cand ctc0, cat_pp pp0, cuest_identidad cid0, cuest_curricular ccu0, cat_grad_academ cga0
           WHERE cca.id_user=c0.id_user
           AND c0.id_tipo_cand=ctc0.id
           AND cca.pp=pp0.id
+          AND cid0.id_user_cand=cca.id_user
           AND ccu0.id_user_cand=cca.id_user
+          AND cid0.status=1
+          AND ccu0.status=1
           AND cga0.id=ccu0.id_grad_acad ".$filt_busqueda[0]." ";
 
     $q[1] = " SELECT ccdmr.id_user, CONCAT(ccdmr.nombre, ' ', ccdmr.a_pate, ' ',ccdmr.a_mate) nombres, ctc1.nombre cargo, pp1.nom_com afiliacion, ".$edad[1]." edad, cga1.nombre_com grad_academ, ccdmr.id_user url_perfil
-          FROM c_cand_dip_mr ccdmr, c_candidatos c1, cat_tipo_cand ctc1, cat_pp pp1, cuest_curricular ccu1, cat_grad_academ cga1
+          FROM c_cand_dip_mr ccdmr, c_candidatos c1, cat_tipo_cand ctc1, cat_pp pp1, cuest_identidad cid1, cuest_curricular ccu1, cat_grad_academ cga1
           WHERE ccdmr.id_user=c1.id_user
           AND c1.id_tipo_cand=ctc1.id
           AND ccdmr.pp=pp1.id
+          AND cid1.id_user_cand=ccdmr.id_user
           AND ccu1.id_user_cand=ccdmr.id_user
+          AND cid1.status=1
+          AND ccu1.status=1
           AND cga1.id=ccu1.id_grad_acad ".$filt_busqueda[1]." ";
 
     $q[2] = " SELECT ccdrp.id_user, CONCAT(ccdrp.nombre, ' ', ccdrp.a_pate, ' ',ccdrp.a_mate) nombres, ctc2.nombre cargo, pp2.nom_com afiliacion, ".$edad[2]." edad, cga2.nombre_com grad_academ, ccdrp.id_user url_perfil
-          FROM c_cand_dip_rp ccdrp, c_candidatos c2, cat_tipo_cand ctc2, cat_pp pp2, cuest_curricular ccu2, cat_grad_academ cga2
+          FROM c_cand_dip_rp ccdrp, c_candidatos c2, cat_tipo_cand ctc2, cat_pp pp2, cuest_identidad cid2, cuest_curricular ccu2, cat_grad_academ cga2
           WHERE ccdrp.id_user=c2.id_user
           AND c2.id_tipo_cand=ctc2.id
           AND ccdrp.pp=pp2.id
+          AND cid2.id_user_cand=ccdrp.id_user
           AND ccu2.id_user_cand=ccdrp.id_user
+          AND cid2.status=1
+          AND ccu2.status=1
           AND cga2.id=ccu2.id_grad_acad ".$filt_busqueda[2]." ";
 
 

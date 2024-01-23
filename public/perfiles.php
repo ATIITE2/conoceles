@@ -25,6 +25,24 @@ function getInterpDato($n, $dato){
     if($n==0){
         if((! is_null($dato)) && (! empty($dato)) && (! ctype_space($dato))) $r_dato=$dato;
     }
+
+    if($n==1){
+        if((! is_null($dato)) && (! empty($dato)) && ($dato != '-')) $r_dato=$dato;
+    }
+
+
+    if($n==2){
+        $r_dato="Sin responder";
+        if($dato==1) $r_dato="Sí";
+        if($dato==2) $r_dato="No";
+    }
+
+    if($n==3){
+        $r_dato="Sin responder";
+        if($dato==1) $r_dato="Joven";
+        if($dato==2) $r_dato="Mayor";
+    }
+
     return $r_dato;
 }
 
@@ -51,26 +69,58 @@ function getInterpDato($n, $dato){
                 <!-- inicio -->
                 <div class="a_gris" style="border-radius:30px; margin-right: 10px">
                     <div class="cent">
-                        <img src="tmp/img/man-with-laptop-light-small.png" alt="Foto Candidatura" class="img-cand img-responsive">
+                        <img src="<?php if($datosCandidato['cand_img'] != "-") echo "..". $datosCandidato['cand_img']; ?>" alt="Foto Candidatura" class="img-cand img-responsive">
                     </div>
                     <div>
                         <p class="text-c text-xl"><?php echo $datosCandidato['nom_comp']; ?></p>
                         <div class="cent">
-                            <img class="img-pp-coal" src="<?php echo RUTA_SCRIPTS.$datosCandidato['pp_img']; ?>" alt="COALICION">
+                            <img class="img-pp-coal" src="<?php if($datosCandidato['pp_img'] !="-") echo RUTA_SCRIPTS.$datosCandidato['pp_img']; ?>" alt="COALICION">
                         </div>
                     </div><br>
                     <div>
-                        <p class="text-c text-med">Dirección de casa de campaña:</p>
-                        <p class="text-c">DEFINIR DIRECCION CASA DE CAMPAÑA</p>
+                        <p class="text-c text-med">Direcciones de casa de campaña:</p>
+                        <?php if($datosCandidato['dire_1'] !== "-") { ?>
+                            <p class="text-c"><?php echo $datosCandidato['dire_1']; ?></p>
+                        <?php } 
+
+                        if($datosCandidato['dire_2'] !== "-") { ?>
+                            <p class="text-c"><?php echo $datosCandidato['dire_2']; ?></p>
+                        <?php }
+
+                        if($datosCandidato['dire_3'] !== "-") { ?>
+                            <p class="text-c"><?php echo $datosCandidato['dire_3']; ?></p>
+                        <?php } ?>
+                        
                     </div>
-                    <br><br><br><br>
+                    <br>
                     <div>
-                        <p class="text-c text-med">Teléfono público: </p>
-                        <p class="text-c"><?php echo $datosCandidato['tel']; ?></p>
+                        <p class="text-c text-med">Teléfonos: </p>
+                        <?php if($datosCandidato['tel_1'] !== "-" && $datosCandidato['tel_1'] != 0) { ?>
+                            <p class="text-c"><?php echo $datosCandidato['tel_1']; ?></p>
+                        <?php } 
+
+                        if($datosCandidato['tel_2'] !== "-" && $datosCandidato['tel_2'] != 0) { ?>
+                            <p class="text-c"><?php echo $datosCandidato['tel_2']; ?></p>
+                        <?php }
+
+                        if($datosCandidato['tel_3'] !== "-" && $datosCandidato['tel_3'] != 0) { ?>
+                            <p class="text-c"><?php echo $datosCandidato['tel_3']; ?></p>
+                        <?php } ?>
                     </div>
                     <div><br>
                         <p class="text-c text-med">Correo electrónico: </p>
-                        <p class="text-c"><?php echo $datosCandidato['mail']; ?></p>
+                        <?php if($datosCandidato['mail_1'] !== "-") { ?>
+                            <p class="text-c"><?php echo $datosCandidato['mail_1']; ?></p>
+                        <?php } 
+
+                        if($datosCandidato['mail_2'] !== "-") { ?>
+                            <p class="text-c"><?php echo $datosCandidato['mail_2']; ?></p>
+                        <?php }
+
+                        if($datosCandidato['mail_3'] !== "-") { ?>
+                            <p class="text-c"><?php echo $datosCandidato['mail_3']; ?></p>
+                        <?php } ?>
+
                     </div>
                     <div class="red_social">
                         <!-- <ul class="red_social">
@@ -177,12 +227,14 @@ function getInterpDato($n, $dato){
                     <div class="col-md-3">
                         <input type="text" value="<?php echo $datosCandidato['sexo']; ?>" disabled="true" class="form-control dato">
                     </div>
+                    <!-- 
                     <div class="col-md-2 text-center;">
                         <span><a href="?c=Candidatura&amp;a=ficha&amp;id=11" class="btn btn-secondary" title="Descargar Ficha en PDF" target="_blank"> 
                         <img src="tmp/img/pdf.png" width="25" height="25" alt="">
                         <span style="padding-left:5px;text-align:center;"> Descarga la ficha aquí</span></a> </span>
-                    </div>
+                    </div> -->
                 </div>
+                <!-- 
                 <div class="col-md-12 a_gris flexible">
                     <div class="col-md-2 bloque">
                         <label  class="form-control transparente">Distrito:</label>   
@@ -190,6 +242,44 @@ function getInterpDato($n, $dato){
                     <div class="col-md-8">
                         <input type="text" value="DEFINIR DISTRITO" disabled="true" class="form-control dato">
                     </div>
+                </div> -->
+                <div class="col-md-12 info-hist">
+                    <img src="tmp/img/infoHist.png" class="igicon" alt=""> <i class="fa-solid fa-file-lines"></i> <label >  Información de Identidad</label>
+                </div>
+                <div class="col-md-12 a_gris flexible">
+                    <div class="col-md-2 bloque">
+                        <label  class="form-control transparente">Es persona Indígena:</label>   
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="<?php echo getInterpDato(2, $datosCandidato['indigena_p1']); ?>" disabled="true" class="form-control dato">
+                    </div>            
+                    <div class="col-md-2 bloque">
+                        <label  class="form-control transparente">Es persona Discapacitada:</label>   
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="<?php echo getInterpDato(2, $datosCandidato['discapacidad_p1']); ?>" disabled="true" class="form-control dato">
+                    </div>
+                    <div class="col-md-2 bloque">
+                        <label  class="form-control transparente">Es persona Afromexicana:</label>   
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="<?php echo getInterpDato(2, $datosCandidato['afromexicano_p1']); ?>" disabled="true" class="form-control dato">
+                    </div>
+                </div>
+                <div class="col-md-12 a_gris flexible">
+                    <div class="col-md-2 ">
+                        <label  class="form-control transparente">Está vinculado a LGBTTT+:</label>   
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="<?php echo getInterpDato(2, $datosCandidato['lgbt_p1']); ?>" disabled="true" class="form-control dato">
+                    </div>
+                    <div class="col-md-2 bloque">
+                        <label  class="form-control transparente">Se considera joven o mayor:</label>   
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" value="<?php echo getInterpDato(3, $datosCandidato['joven_mayor']); ?>" disabled="true" class="form-control dato">
+                    </div>                
+                    
                 </div>
                 <div class="col-md-12 info-hist">
                     <img src="tmp/img/infoHist.png" class="igicon" alt=""> <i class="fa-solid fa-file-lines"></i> <label >  Información  curricular</label>
