@@ -2,7 +2,8 @@
 
 ini_set('default_charset', 'UTF-8');
 
-require("../comm/getDBEnlace.php");
+define("RUTA_SCRIPTS", "../");
+require(RUTA_SCRIPTS. "comm/getDBEnlace.php");
 
 $result= "";
 

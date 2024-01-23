@@ -1,17 +1,13 @@
 <?php
 
-$cred = array();
+include(RUTA_SCRIPTS. "connect.php");
 
-$cred["dbhost"]="localhost";
-$cred["dbusr"]= "lefranktlx";
-$cred["dbpass"]= "HolaHola";
-$cred["dbname"]="conoceles_db";
-
+$_env=getConexion();
 
 function dbConexion($q) {
     // Credenciales Base de datos
-    global $cred;
-    $conn = new mysqli($cred["dbhost"], $cred["dbusr"], $cred["dbpass"], $cred["dbname"]);
+    global $_env;
+    $conn = new mysqli($_env["DB_HOST"], $_env["DB_USR"], $_env["DB_PASS"], $_env["DB_NAME"]);
     if ($conn->connect_error) {
         die("Fallo la conexión con la BD: " . $conn->connect_error);
     }
@@ -36,9 +32,9 @@ function dbConexion($q) {
 
 function dbConexionSave($q,$tipos,$valores) {
     // Credenciales Base de datos
-    global $cred;
+    global $_env;
     $resp= "";
-    $conn = new mysqli($cred["dbhost"], $cred["dbusr"], $cred["dbpass"], $cred["dbname"]);
+    $conn = new mysqli($_env["DB_HOST"], $_env["DB_USR"], $_env["DB_PASS"], $_env["DB_NAME"]);
 
     // Consulta previa para ajustar los nobres de fechas de dias y meses en español
     $conn->set_charset("utf8");
