@@ -1,10 +1,11 @@
 <?php 
-$db_host="localhost";
-$db_nombre="conoceles_db";
-$db_usuario="lefranktlx";
-$db_pass="HolaHola";
+$ruta= (isset($c_on)) ? "../../" : "../";
 
-$con=mysqli_connect($db_host,$db_usuario,$db_pass,$db_nombre);
+include($ruta."connect.php");
+
+$_env=getConexion();
+
+$con=mysqli_connect($_env["DB_HOST"],$_env["DB_USR"],$_env["DB_PASS"],$_env["DB_NAME"]);
 
 // Ajustar los carácteres a utf8
 mysqli_set_charset($con,"utf8");
