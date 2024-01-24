@@ -5,11 +5,6 @@ $c_on=1;
 include_once("conexion.php");
 $id_user = $_SESSION['id_user'];
 
-// Configuración FTP
-$ftp_server = "localhost";
-$ftp_username = "conoceles_admin";
-$ftp_password = "abcd1234";
-
 // Conexión FTP
 $ftp_conn = ftp_connect($_env["FTP_HOST"]) or die("Error al conectar al servidor FTP");
 
@@ -51,7 +46,7 @@ if(isset($_FILES['file'])){
         }
     }
     else {
-        echo "El archivo es demaciado pesado.";
+        echo "El archivo es demasiado pesado.";
 }
 } else {
     echo "No se ha seleccionado ningún archivo.";

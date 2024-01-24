@@ -69,7 +69,7 @@ function getInterpDato($n, $dato){
                 <!-- inicio -->
                 <div class="a_gris" style="border-radius:30px; margin-right: 10px">
                     <div class="cent">
-                        <img src="<?php if($datosCandidato['cand_img'] != "-") echo "..". $datosCandidato['cand_img']; ?>" alt="Foto Candidatura" class="img-cand img-responsive">
+                        <img src="<?php if($datosCandidato['cand_img'] != "-") echo ".."."/assets/img".$datosCandidato['cand_img']; ?>" alt="Foto Candidatura" class="img-cand img-responsive">
                     </div>
                     <div>
                         <p class="text-c text-xl"><?php echo $datosCandidato['nom_comp']; ?></p>
