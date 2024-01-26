@@ -14,6 +14,7 @@ $cat_chrt=getCatList(3);
 $cat_gen=getCatList(4);
 $cat_tipo_cand=getCatList(5);
 $cat_dist=getCatList(6);
+$cat_ayun=getCatList(7);
 
 
 // Se genera el html del catálogo de grados de estudios y se guarda en su variable correspondiente
@@ -94,6 +95,14 @@ $html_cat_dist='';
 foreach ($cat_dist as $row) {
     if($row['status'] == 1) {
         $html_cat_dist.='<option value="'.$row['id'].'">'.$row['nombre'].' '.$row['cabecera'].'</option>'.PHP_EOL;
+    }
+}
+
+$html_cat_ayun='';
+
+foreach ($cat_ayun as $row) {
+    if($row['status'] == 1) {
+        $html_cat_ayun.='<option value="'.$row['id'].'">'.$row['nombre_municipio'].'</option>'.PHP_EOL;
     }
 }
                    
@@ -178,20 +187,20 @@ foreach ($cat_dist as $row) {
         <div class="d-inline-flex mt-2">
             <div class="mr-2 text-justify">
                 <strong class="texto__forms">Tipo de candidatura:</strong>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="tipo_cand">
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="tipo_cand" onchange="muestraAyunDist($(this).val());">
                     <option value="0">Selecciona tipo de candidatura</option>
                     <?php echo $html_cat_tipo_cand; ?>
                 </select>
                 
             </div>
-            <div class="mr-2 text-justify ayun_dist">
+            <div class="mr-2 text-justify ayun_dist" id="ayun_list">
                 <strong class="texto__forms">Ayuntamientos:</strong>
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="ayuntamiento">
                     <option value="0">Selecciona ayuntamiento</option>
-                    <?php echo $html_cat_dist; ?>
+                    <?php echo $html_cat_ayun; ?>
                 </select>
             </div>
-            <div class="mr-2 text-justify ayun_dist ">
+            <div class="mr-2 text-justify ayun_dist" id="dist_list">
                 <strong class="texto__forms">Distritos locales:</strong>
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="distrito">
                     <option value="0">Selecciona distrito local</option>

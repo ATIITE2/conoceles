@@ -51,9 +51,7 @@ function activarList(chl){
 }
 
 function lmpCampos(){
-
-	$("#ayuntamiento").val("0");
-    $("#distrito").val("0");
+	resetListAyunDist();
 
     $("#grado_aca").val("0");
     $("#rango_edad").val("0");
@@ -62,9 +60,12 @@ function lmpCampos(){
 	$("#sexo").val("0");
     $("#listado_candidatos").DataTable().clear().destroy();
     $(".tabla_elem").addClass('d-none');
+}
 
+function resetListAyunDist(){
+	$("#ayuntamiento").val("0");
+    $("#distrito").val("0");
 	if(! $(".ayun_dist").hasClass("d-none")) $(".ayun_dist").addClass('d-none');
-
 }
 
 
@@ -101,3 +102,12 @@ function lmpCampos(){
 	});	
 		
   })(jQuery);
+
+  function muestraAyunDist(n){
+	resetListAyunDist();
+	console.log("Se selecciona valor: "+n);
+
+	// if(n===2) $("#ayun_list").add();
+
+
+  }
