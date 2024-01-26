@@ -20,14 +20,13 @@
     float: right;
 }
 
-@media screen and (max-width: 760px) {
-
-    .Header__logoITE {
-        width: 9rem !important;
-        /* margin-bottom: !important; */
-        display: none !important;
+@media (max-width: 991.98px) {
+    .mc .d-none {
+      display: none;
     }
-
-}
+    .head_txt {
+        display: none;
+    }
+  }
 
 /** TERMINA HEADER */

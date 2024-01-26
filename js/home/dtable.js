@@ -3,8 +3,9 @@ function obtenDataTable(num) {
 
     var grado = parseInt($( "#grado_aca" ).val());
     var rango_edad = parseInt($( "#rango_edad" ).val());
-    var sexo = $("input[id='sexo']:checked").val();
-    var actorPol = $("input[id='actorPol']:checked").val();
+    // var sexo = $("input[id='sexo']:checked").val();
+    var sexo = $("#sexo").val();
+    var actorPol = $("input[name='actorPol']:checked").val();
     sexo = (sexo === undefined) ? "" : parseInt(sexo);
     actorPol = (actorPol === undefined) ? "" : parseInt(actorPol);
 

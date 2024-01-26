@@ -12,6 +12,8 @@ $cat_grados=getCatList(1);
 $cat_partidos=getCatList(2);
 $cat_chrt=getCatList(3);
 $cat_gen=getCatList(4);
+$cat_tipo_cand=getCatList(5);
+$cat_dist=getCatList(6);
 
 
 // Se genera el html del catálogo de grados de estudios y se guarda en su variable correspondiente
@@ -34,9 +36,9 @@ $html_cat_partidos='';
 
 foreach ($cat_partidos as $row) {
     $html_cat_partidos.='<div class="form-check">
-                            <input class="form-check-input" type="radio" name="actorPol" id="actorPol" value="'.$row['id'].'">
+                            <input class="form-check-input" type="radio" name="actorPol" id="actorPol_'.$row['id'].'" value="'.$row['id'].'">
                             <img src="'.$row['url_img'].'" class="img-fluid" alt="Conoceles_'.$row['nom_cor'].'" width="50px">
-                            <label class="form-check-label" for="actorPol"><strong>&nbsp;'.$row['nom_cor'].'</strong></label>
+                            <label class="form-check-label" for="actorPol_'.$row['id'].'"><strong>&nbsp;'.$row['nom_cor'].'</strong></label>
                         </div>'.PHP_EOL;
 }
 
@@ -75,10 +77,23 @@ $html_cat_generos='';
 
 foreach ($cat_gen as $row) {
     if($row['status'] == 1) {
-        $html_cat_generos.='<div class="form-check col-md">
-                                <input class="form-check-input" type="radio" name="sexo" id="sexo" value="'.$row['id'].'">
-                                <label class="form-check-label" for="sexo">'.$row['nombre'].'</label>
-                            </div>'.PHP_EOL;
+        $html_cat_generos.='<option value="'.$row['id'].'">'.$row['nombre'].'</option>'.PHP_EOL;
+    }
+}
+
+$html_cat_tipo_cand='';
+
+foreach ($cat_tipo_cand as $row) {
+    if($row['status'] == 1) {
+        $html_cat_tipo_cand.='<option value="'.$row['id'].'">'.$row['nombre'].'</option>'.PHP_EOL;
+    }
+}
+
+$html_cat_dist='';
+
+foreach ($cat_dist as $row) {
+    if($row['status'] == 1) {
+        $html_cat_dist.='<option value="'.$row['id'].'">'.$row['nombre'].' '.$row['cabecera'].'</option>'.PHP_EOL;
     }
 }
                    
@@ -115,13 +130,13 @@ foreach ($cat_gen as $row) {
 <script src="<?php echo RUTA_SCRIPTS ?>js/home/main.js"></script>
 <script src="<?php echo RUTA_SCRIPTS ?>js/home/dtable.js"></script>
 
-    <div class="w-10 d-flex justify-content-center">
+    <div class="w-10 img_h d-flex justify-content-center">
         <div class="p-4 d-flex flex-column align-items-center col-12">
             <img src="assets/img/conoceles.jpg" class="img-fluid rounded w-100 mx-auto d-block" alt="Conoceles_banner">
         </div>
     </div>
     
-    <div class="w-10 d-flex justify-content-center">
+    <!-- <div class="w-10 d-flex justify-content-center">
         <div class="p-2 d-flex flex-column align-items-center col-11">
             <div class="row tema-area text-center">
                 <div class="col-6">
@@ -132,7 +147,7 @@ foreach ($cat_gen as $row) {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="w-10 d-flex justify-content-center">
         <div class="p-3 d-flex flex-column align-items-center col-13">
@@ -145,7 +160,7 @@ foreach ($cat_gen as $row) {
         </div>
     </div>
 
-    <div class="w-10 d-flex justify-content-center">
+    <!-- <div class="w-10 d-flex justify-content-center">
         <div class="p-3 d-flex flex-column align-items-center col-12">
             <div class="tema-area text-justify">
             <span class="color__span">
@@ -154,18 +169,49 @@ foreach ($cat_gen as $row) {
                 </span>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="border-2 border-top"></div>
+    <div class="border-2 border-top"></div><br>
+
+    <div class="w-10 d-flex flex-wrap justify-content-center justify-content-md-center">
+        
+        <div class="d-inline-flex mt-2">
+            <div class="mr-2 text-justify">
+                <strong class="texto__forms">Tipo de candidatura:</strong>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="tipo_cand">
+                    <option value="0">Selecciona tipo de candidatura</option>
+                    <?php echo $html_cat_tipo_cand; ?>
+                </select>
+                
+            </div>
+            <div class="mr-2 text-justify ayun_dist">
+                <strong class="texto__forms">Ayuntamientos:</strong>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="ayuntamiento">
+                    <option value="0">Selecciona ayuntamiento</option>
+                    <?php echo $html_cat_dist; ?>
+                </select>
+            </div>
+            <div class="mr-2 text-justify ayun_dist ">
+                <strong class="texto__forms">Distritos locales:</strong>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="distrito">
+                    <option value="0">Selecciona distrito local</option>
+                    <?php echo $html_cat_dist; ?>
+                </select>
+            </div>
+
+            <div class="mr-2 text-justify">
+                <strong class="texto__forms">Nombre:</strong>
+                <input type="text" class="form-control form-control-sm" placeholder="Nombre candidato" aria-label="form-control-sm example" id="nombre_cand">
+            </div>
+
+        </div>
+    </div><br>
     
-    <div class="w-10 d-flex">
-        <div class="p-4 d-flex flex-column justify-content-center">
+    <div class="w-10 d-flex flex-wrap justify-content-center justify-content-md-center">
+        <div class="d-inline-flex col-11">
             <p class="text-secondary">* La opción de búsqueda Grado académico solamente presenta los datos capturados
                 por las y los candidatos. </p>
         </div>
-    </div>
-
-    <div class="w-10 d-flex flex-wrap justify-content-center justify-content-md-center">
         <div class="d-inline-flex mt-2">
             <div class="mr-2 text-justify">
                 <strong class="texto__forms">Grado académico:</strong>
@@ -175,7 +221,7 @@ foreach ($cat_gen as $row) {
             <div class="mr-2 text-justify">
                 <strong class="texto__forms">Rango de edad:</strong>
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="rango_edad">
-                    <option value="0">Selecciona edad:</option>
+                    <option value="0">Selecciona edad</option>
                     <option value="1">21 a 29 años de edad</option>
                     <option value="2">30 a 40 años de edad</option>
                     <option value="3">41 a 49 años de edad</option>
@@ -185,21 +231,13 @@ foreach ($cat_gen as $row) {
             </div>
 
             <div class="mr-2 text-justify">
-                <strong class="texto__forms">Género:</strong><br>
-
-                <table class="table table-responsive table-borderless">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="d-flex flex-wrap justify-content-center justify-content-md-center">
-                                    <?php echo $html_cat_generos; ?>
-                                
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <strong class="texto__forms">Género:</strong>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="sexo">
+                    <option value="0">Selecciona género</option>    
+                    <?php echo $html_cat_generos; ?>
+                </select>
             </div>
+
         </div>
     </div>
     
@@ -214,7 +252,7 @@ foreach ($cat_gen as $row) {
                     <td>
                         <div class="d-flex flex-wrap justify-content-center justify-content-md-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="actorPol" id="actorPol" value="0" checked>
+                                <input class="form-check-input" type="radio" name="actorPol" id="actorPol_0" value="0" checked>
                                 <img src="assets/img/pp/todos.png" class="img-fluid" alt="Conoceles_todos" width="50px">
                                 <label class="form-check-label" for="actorPol"><strong>&nbsp;TODOS</strong></label>
                             </div>

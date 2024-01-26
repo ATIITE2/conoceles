@@ -123,7 +123,6 @@ $usuario=$_SESSION['usuario'];
                                                             name="appm_e" placeholder="nombre"
                                                             value="<?php echo $app2_edit; ?>" />
                                                     </div>
-
                                                     <div class="col-lg-12">
                                                         <label class="form-label">
                                                             Partido Politico</label>

@@ -51,12 +51,19 @@ function activarList(chl){
 }
 
 function lmpCampos(){
+
+	$("#ayuntamiento").val("0");
+    $("#distrito").val("0");
+
     $("#grado_aca").val("0");
     $("#rango_edad").val("0");
-    $("input[type=radio][id=actorPol]").prop('checked', false);
-    $("input[type=radio][id=sexo]").prop('checked', false);
+    $("input[type=radio][name=actorPol]").prop('checked', false);
+    
+	$("#sexo").val("0");
     $("#listado_candidatos").DataTable().clear().destroy();
     $(".tabla_elem").addClass('d-none');
+
+	if(! $(".ayun_dist").hasClass("d-none")) $(".ayun_dist").addClass('d-none');
 
 }
 

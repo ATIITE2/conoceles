@@ -55,4 +55,11 @@
   text-align: right;
 }
 
+@media (max-width: 991.98px) {
+  .img_h {
+    display: none !important;
+  }
+  
+}
+
 /** termina HOME */

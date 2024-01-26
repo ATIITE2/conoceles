@@ -222,7 +222,7 @@ function getInterpDato($n, $dato){
                         <input type="text" value="<?php echo $datosCandidato['edad']; ?>" disabled="true" class="form-control dato">
                     </div>            
                     <div class="col-md-2 bloque">
-                        <label  class="form-control transparente">Sexo:</label>   
+                        <label  class="form-control transparente">Género:</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" value="<?php echo $datosCandidato['sexo']; ?>" disabled="true" class="form-control dato">
@@ -268,7 +268,7 @@ function getInterpDato($n, $dato){
                 </div>
                 <div class="col-md-12 a_gris flexible">
                     <div class="col-md-2 ">
-                        <label  class="form-control transparente">Está vinculado a LGBTTT+:</label>   
+                        <label  class="form-control transparente">Está vinculado a LGBTTTIQ+:</label>   
                     </div>
                     <div class="col-md-2">
                         <input type="text" value="<?php echo getInterpDato(2, $datosCandidato['lgbt_p1']); ?>" disabled="true" class="form-control dato">

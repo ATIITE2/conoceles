@@ -22,6 +22,8 @@ function getCatList($n){
     if($n == 2) $q = "SELECT * FROM cat_pp ORDER BY id";
     if($n == 3) $q = "SELECT * FROM cat_charts ORDER BY id";
     if($n == 4) $q = "SELECT * FROM cat_sexo ORDER BY id";
+    if($n == 5) $q = "SELECT * FROM cat_tipo_cand ORDER BY id";
+    if($n == 6) $q = "SELECT * FROM cat_distritos_electorales ORDER BY id";
     
     $result = dbConexion($q);
 
